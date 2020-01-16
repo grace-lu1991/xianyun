@@ -1,27 +1,32 @@
 <template>
   <div class="container">
-   首页
+ 
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+
 
 export default {
-  components: {
-    Logo
-  }
+ 
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+<style lang='less' scoped>
+*{
+  margin:0; 
+  padding:0;
+}
+ul, li, ol{
+  list-style:none;
+}
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+em,i{
+  font-style: normal;
 }
 
 
