@@ -1,5 +1,10 @@
 <template>
-  <div></div>
+  <div class="login">
+<el-row type="flex" justify="center" align="center" class="main">
+ 
+ 
+</el-row>
+  </div>
 </template>
 
 <script>

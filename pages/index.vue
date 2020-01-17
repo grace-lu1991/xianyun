@@ -3,7 +3,7 @@
     <!-- 轮播图 -->
  <el-carousel height="750px">
       <el-carousel-item v-for="(item,index) in banners" :key="index" class="bannners">
-        <div :style="`background:url(${item.url}) center center no-repeat`" class="bannner-img"></div>
+        <div :style="`background:url(${$axios.defaults.baseURL+ item.url}) center center no-repeat`" class="bannner-img"></div>
       </el-carousel-item>
     </el-carousel>
     <!-- tab栏 -->
@@ -52,7 +52,16 @@ methods:{
 this.$router.push('/air')
     }
     this.current=index
-  }
+  } 
+},
+mounted(){
+  this.$axios({
+    url:'/scenics/banners'
+  }).then(res=>{
+    console.log(res)
+    let {data}=res.data
+    this.banners=data
+  })
 }
 }
 </script>
