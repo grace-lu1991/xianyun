@@ -5,14 +5,14 @@
         :rules="rules" 
         class="form">
 
-        <el-form-item class="form-item">
-            <el-input 
+        <el-form-item class="form-item" prop="username">
+            <el-input v-model="form.username"
             placeholder="用户名/手机">
             </el-input>
         </el-form-item>
 
-        <el-form-item class="form-item">
-            <el-input 
+        <el-form-item class="form-item" prop="password">
+            <el-input v-model="form.password"
             placeholder="密码" 
             type="password">
             </el-input>
@@ -35,17 +35,48 @@
 <script>
 export default {
     data(){
+ const validateuserName = (rule, value, callback) => {
+const isvalid=/^1[3,4,5,6,7,8,9][0-9]{9}$/.test(value)
+if(!isvalid){
+    callback(new Error('输入的用户名错误'))
+}else{
+    callback()
+}
+ }
+
+
         return {
             // 表单数据
-            form: {},
+            form: {
+                username:'',
+                password:''
+            },
             // 表单规则
-            rules: {},
+            rules: {
+                username:[{validator: validateuserName,message:'请输入用户名', trigger: 'blur'}],
+                password:[{required:true,message:'请输入正确密码',trigger: 'blur'}]
+            },
         }
     },
     methods: {
         // 提交登录
         handleLoginSubmit(){
            console.log(this.form)
+           this.$refs.form.validate((valid) =>{
+               if(valid){
+                   this.$axios({
+                       method:'post',
+                       url:'/accounts/login',
+                       data:this.form
+                   }).then(res=>{
+                       console.log(res)
+                       const {data}=res
+                       //调用mutation方法将数据存储到store/vuex里面
+                       this.$store.commit('user/setuserInfo',data)
+
+                   })
+               }
+           })
         }
     }
 }
